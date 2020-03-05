@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+message Authorization {
+        optional string id = 1;
+        optional string identifier = 2;
+        optional int64 registrationID = 3;
+        optional string status = 4;
+        optional int64 expires = 5; // Unix timestamp (nanoseconds)
+        reserved 6; // previously combinations
+        reserved 7; // previously v2
+}
+
+message Authorizations {
+        message MapElement {
+                optional string domain = 1;
+                optional Authorization authz = 2;
+        }
+        repeated MapElement authz = 1;
+}
