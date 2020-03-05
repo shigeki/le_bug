@@ -15,7 +15,7 @@ type authzModel struct {
         Expires          time.Time
 }
 
-func modelToAuthzPB(am *authzModel) (*apb.Authorization, error) {
+func modelToAuthzPB(am authzModel) (*apb.Authorization, error) {
         expires := am.Expires.UTC().UnixNano()
         id := fmt.Sprintf("%d", am.ID)
         status := "valid"
@@ -36,7 +36,7 @@ func authzModelMapToPB(m map[string]authzModel) (*apb.Authorizations, error) {
         for k, v := range m {
                 // Make a copy of k because it will be reassigned with each loop.
                 kCopy := k
-                authzPB, err := modelToAuthzPB(&v)
+                authzPB, err := modelToAuthzPB(v)
                 if err != nil {
                         return nil, err
                 }
