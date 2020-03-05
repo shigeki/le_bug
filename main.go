@@ -20,11 +20,11 @@ func modelToAuthzPB(am *authzModel) (*apb.Authorization, error) {
         id := fmt.Sprintf("%d", am.ID)
         status := "valid"
         pb := &apb.Authorization{
-                Id:             &id,
-                Status:         &status,
-                Identifier:     &am.IdentifierValue,
-                RegistrationID: &am.RegistrationID,
-                Expires:        &expires,
+                Id:             id,
+                Status:         status,
+                Identifier:     am.IdentifierValue,
+                RegistrationID: am.RegistrationID,
+                Expires:        expires,
         }
         // snip
         return pb, nil
@@ -40,7 +40,7 @@ func authzModelMapToPB(m map[string]authzModel) (*apb.Authorizations, error) {
                 if err != nil {
                         return nil, err
                 }
-                resp.Authz = append(resp.Authz, &apb.Authorizations_MapElement{Domain: &kCopy, Authz: authzPB})
+                resp.Authz = append(resp.Authz, &apb.Authorizations_MapElement{Domain: kCopy, Authz: authzPB})
         }
         return resp, nil
 }
